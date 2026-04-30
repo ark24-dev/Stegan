@@ -48,13 +48,13 @@ pip install pycryptodome pillow
 
 ```bash
 # 1. Hide a message
-python hex_stego_fixed.py embed cover.png stego.png "Your secret message" "your_password"
+python hex_stego.py embed cover.png stego.png "Your secret message" "your_password"
 
 # 2. The terminal prints: L_h = 224  ← save this number
 # 3. Share stego.png with the receiver (looks identical to cover.png)
 
 # 4. Receiver recovers the message
-python hex_stego_fixed.py extract stego.png 224 "your_password"
+python hex_stego.py extract stego.png 224 "your_password"
 ```
 
 ---
@@ -64,7 +64,7 @@ python hex_stego_fixed.py extract stego.png 224 "your_password"
 ### `embed` — Hide a message
 
 ```
-python hex_stego_fixed.py embed <image> <output> <message> <password> [--psnr]
+python hex_stego.py embed <image> <output> <message> <password> [--psnr]
 ```
 
 | Argument | Description |
@@ -77,7 +77,7 @@ python hex_stego_fixed.py embed <image> <output> <message> <password> [--psnr]
 
 **Example:**
 ```bash
-python hex_stego_fixed.py embed photo.png secret_photo.png "Meet at noon" "hunter2" --psnr
+python hex_stego.py embed photo.png secret_photo.png "Meet at noon" "hunter2" --psnr
 ```
 
 **Output:**
@@ -93,7 +93,7 @@ python hex_stego_fixed.py embed photo.png secret_photo.png "Meet at noon" "hunte
 ### `extract` — Recover a message
 
 ```
-python hex_stego_fixed.py extract <image> <L_h> <password>
+python hex_stego.py extract <image> <L_h> <password>
 ```
 
 | Argument | Description |
@@ -104,7 +104,7 @@ python hex_stego_fixed.py extract <image> <L_h> <password>
 
 **Example:**
 ```bash
-python hex_stego_fixed.py extract secret_photo.png 192 "hunter2"
+python hex_stego.py extract secret_photo.png 192 "hunter2"
 ```
 
 **Output:**
@@ -117,12 +117,12 @@ python hex_stego_fixed.py extract secret_photo.png 192 "hunter2"
 ### `capacity` — Check how much a image can hold
 
 ```
-python hex_stego_fixed.py capacity <image>
+python hex_stego.py capacity <image>
 ```
 
 **Example:**
 ```bash
-python hex_stego_fixed.py capacity photo.png
+python hex_stego.py capacity photo.png
 ```
 
 **Output:**
@@ -137,28 +137,28 @@ Max plaintext: 90,734 bytes  (88.61 KB)
 ### Basic message hiding (PNG)
 
 ```bash
-python hex_stego_fixed.py embed landscape.png landscape_stego.png \
+python hex_stego.py embed landscape.png landscape_stego.png \
   "Coordinates: 37.7749° N, 122.4194° W" "SecretKey@99"
 # → L_h = 208
 
-python hex_stego_fixed.py extract landscape_stego.png 208 "SecretKey@99"
+python hex_stego.py extract landscape_stego.png 208 "SecretKey@99"
 # → ✅ Recovered: 'Coordinates: 37.7749° N, 122.4194° W'
 ```
 
 ### Longer message (BMP)
 
 ```bash
-python hex_stego_fixed.py capacity archive.bmp
+python hex_stego.py capacity archive.bmp
 # → Max plaintext: 245,231 bytes  (239.48 KB)
 
-python hex_stego_fixed.py embed archive.bmp archive_stego.bmp \
+python hex_stego.py embed archive.bmp archive_stego.bmp \
   "$(cat classified_report.txt)" "p@ssw0rd_2026" --psnr
 ```
 
 ### Check quality after embedding
 
 ```bash
-python hex_stego_fixed.py embed original.png stego.png "test" "pass" --psnr
+python hex_stego.py embed original.png stego.png "test" "pass" --psnr
 # → PSNR = 80.12 dB  (>50 dB = imperceptible)
 ```
 
